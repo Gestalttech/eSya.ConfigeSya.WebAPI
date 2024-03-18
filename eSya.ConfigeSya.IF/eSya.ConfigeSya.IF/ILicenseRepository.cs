@@ -15,8 +15,9 @@ namespace eSya.ConfigeSya.IF
         #endregion
 
         #region Location License Info
+        Task<List<DO_BusinessLocation>> GetActiveLocationsforLicenses();
         Task<DO_ReturnParameter> InsertOrUpdateLocationLicenseInfo(DO_LocationLicenseInfo obj);
-        Task<DO_LocationLicenseInfo> GetLocationLicenseInfo(int BusinessKey);
+        Task<List<DO_LocationLicenseInfo>> GetLocationLicenseInfo(int BusinessKey);
         #endregion
     }
 }

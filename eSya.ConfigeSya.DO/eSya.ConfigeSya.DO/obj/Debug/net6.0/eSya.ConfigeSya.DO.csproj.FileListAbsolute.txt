@@ -9,3 +9,4 @@ D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DO\eSya.Conf
 D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DO\eSya.ConfigeSya.DO\obj\Debug\net6.0\refint\eSya.ConfigeSya.DO.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DO\eSya.ConfigeSya.DO\obj\Debug\net6.0\eSya.ConfigeSya.DO.pdb
 D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DO\eSya.ConfigeSya.DO\obj\Debug\net6.0\ref\eSya.ConfigeSya.DO.dll
+D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DO\eSya.ConfigeSya.DO\obj\Debug\net6.0\eSya.ConfigeSya.DO.sourcelink.json

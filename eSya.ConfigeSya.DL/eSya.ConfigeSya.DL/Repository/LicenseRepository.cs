@@ -119,6 +119,28 @@ namespace eSya.ConfigeSya.DL.Repository
         #endregion  Business Subscription
 
         #region Location License Info
+        public async Task<List<DO_BusinessLocation>> GetActiveLocationsforLicenses()
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var bk = db.GtEcbslns
+                        .Where(w => w.ActiveStatus && w.Lstatus)
+                        .Select(r => new DO_BusinessLocation
+                        {
+                            BusinessKey = r.BusinessKey,
+                            LocationDescription = r.BusinessName + "-" + r.LocationDescription
+                        }).ToListAsync();
+
+                    return await bk;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async Task<DO_ReturnParameter> InsertOrUpdateLocationLicenseInfo(DO_LocationLicenseInfo obj)
         {
             using (var db = new eSyaEnterprise())
@@ -149,6 +171,11 @@ namespace eSya.ConfigeSya.DL.Repository
                             licenseinfo.ModifiedBy = obj.UserID;
                             licenseinfo.ModifiedOn = System.DateTime.Now;
                             licenseinfo.ModifiedTerminal = obj.TerminalId;
+                            GtEcbsln sln = db.GtEcbslns.Where(x => x.BusinessKey == obj.BusinessKey).FirstOrDefault();
+                            if(sln != null)
+                            {
+                                sln.Lstatus = true;
+                            }
                             await db.SaveChangesAsync();
                             dbContext.Commit();
                             return new DO_ReturnParameter() { Status = true, StatusCode = "S0002", Message = string.Format(_localizer[name: "S0002"]) };
@@ -172,6 +199,11 @@ namespace eSya.ConfigeSya.DL.Repository
                                 CreatedTerminal = obj.TerminalId,
                             };
                             db.GtEcbslis.Add(licinfo);
+                            GtEcbsln sln = db.GtEcbslns.Where(x => x.BusinessKey == obj.BusinessKey).FirstOrDefault();
+                            if (sln != null)
+                            {
+                                sln.Lstatus = true;
+                            }
                             await db.SaveChangesAsync();
                             dbContext.Commit();
                             return new DO_ReturnParameter() { Status = true, StatusCode = "S0001", Message = string.Format(_localizer[name: "S0001"]) };
@@ -190,25 +222,49 @@ namespace eSya.ConfigeSya.DL.Repository
                 }
             }
         }
-        public async Task<DO_LocationLicenseInfo> GetLocationLicenseInfo(int BusinessKey)
+        public async Task<List<DO_LocationLicenseInfo>> GetLocationLicenseInfo(int BusinessKey)
         {
             try
             {
                 using (var db = new eSyaEnterprise())
                 {
-                    var ds = db.GtEcbslis.Where(w => w.BusinessKey == BusinessKey)
-                      .Select(x => new DO_LocationLicenseInfo
-                      {
-                          BusinessKey = x.BusinessKey,
-                          EBusinessKey = x.EBusinessKey,
-                          ESyaLicenseType = x.ESyaLicenseType,
-                          EUserLicenses = Convert.ToInt32(Encoding.UTF8.GetString(x.EUserLicenses)),
-                          ENoOfBeds = Convert.ToInt32(x.ENoOfBeds != null ? Encoding.UTF8.GetString(x.ENoOfBeds) : "0"),
-                          EActiveUsers = x.EActiveUsers,
-                          ActiveStatus = x.ActiveStatus
-                      }).FirstOrDefaultAsync();
+                    if (BusinessKey == 0)
+                    {
+                        var bk = db.GtEcbslns
+                       .Where(w => w.ActiveStatus && !w.Lstatus)
+                       .Select(r => new DO_LocationLicenseInfo
+                       {
+                           BusinessKey = r.BusinessKey,
+                           LocationDescription = r.BusinessName + "-" + r.LocationDescription,
+                           ActiveStatus = r.ActiveStatus
 
-                    return await ds;
+                       }).ToListAsync();
+
+                        return await bk;
+                    }
+                    else
+                    {
+
+
+                        var ds = db.GtEcbslis.Where(x=>x.BusinessKey==BusinessKey).
+                            Join(db.GtEcbslns.Where(x=>x.BusinessKey==BusinessKey),
+                            l=>l.BusinessKey,li=>li.BusinessKey,
+                            (l,li)=> new DO_LocationLicenseInfo
+                          {
+                              BusinessKey = l.BusinessKey,
+                              EBusinessKey = l.EBusinessKey,
+                              ESyaLicenseType = l.ESyaLicenseType,
+                              EUserLicenses = Convert.ToInt32(Encoding.UTF8.GetString(l.EUserLicenses)),
+                              ENoOfBeds = Convert.ToInt32(l.ENoOfBeds != null ? Encoding.UTF8.GetString(l.ENoOfBeds) : "0"),
+                              EActiveUsers = l.EActiveUsers,
+                              ActiveStatus = l.ActiveStatus,
+                              Lstatus=li.Lstatus,
+                              LocationDescription = li.BusinessName + "-" + li.LocationDescription,
+
+                            }).ToListAsync();
+
+                        return await ds;
+                    }
                 }
             }
             catch (Exception ex)

@@ -17,3 +17,4 @@ D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DL\eSya.Conf
 D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DL\eSya.ConfigeSya.DL\obj\Debug\net6.0\eSya.ConfigeSya.DL.csproj.CopyComplete
 D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DL\eSya.ConfigeSya.DL\bin\Debug\net6.0\eSya.ConfigeSya.DL.runtimeconfig.json
 D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DL\eSya.ConfigeSya.DL\obj\Debug\net6.0\eSya.ConfigeSya.DL.genruntimeconfig.cache
+D:\Projects\eSyaProjects2022\eSya.ConfigeSya.WebAPI\eSya.ConfigeSya.DL\eSya.ConfigeSya.DL\obj\Debug\net6.0\eSya.ConfigeSya.DL.sourcelink.json

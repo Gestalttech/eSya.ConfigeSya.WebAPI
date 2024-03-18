@@ -41,6 +41,17 @@ namespace eSya.ConfigeSya.WebAPI.Controllers
 
         #region Location License Info
         /// <summary>
+        /// Get Location License Info by BusinessKey.
+        /// UI Reffered -Business Location 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetActiveLocationsforLicenses()
+        {
+            var locinfo = await _licenseRepository.GetActiveLocationsforLicenses();
+            return Ok(locinfo);
+        }
+        /// <summary>
         /// Insert Location License Info .
         /// UI Reffered -Business Location
         /// </summary>
