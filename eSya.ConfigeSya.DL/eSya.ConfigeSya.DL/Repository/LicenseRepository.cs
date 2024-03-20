@@ -54,20 +54,20 @@ namespace eSya.ConfigeSya.DL.Repository
                             GtEcbssu is_SubsFrmDateExist = db.GtEcbssus.FirstOrDefault(be => be.BusinessKey == businessSubscription.BusinessKey && be.SubscribedFrom >= businessSubscription.SubscribedFrom);
                             if (is_SubsFrmDateExist != null)
                             {
-                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0025", Message = string.Format(_localizer[name: "W0025"]) };
+                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0058", Message = string.Format(_localizer[name: "W0058"]) };
                             }
 
                             GtEcbssu is_SubstoDateExist = db.GtEcbssus.FirstOrDefault(be => be.BusinessKey == businessSubscription.BusinessKey && be.SubscribedTill >= businessSubscription.SubscribedTill);
                             if (is_SubstoDateExist != null)
                             {
-                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0026", Message = string.Format(_localizer[name: "W0026"]) };
+                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0059", Message = string.Format(_localizer[name: "W0059"]) };
 
                             }
 
                             var is_SubsCheck = db.GtEcbssus.FirstOrDefault(be => be.BusinessKey == businessSubscription.BusinessKey && (be.SubscribedTill >= businessSubscription.SubscribedFrom || businessSubscription.SubscribedTill >= businessSubscription.SubscribedFrom));
                             if (is_SubsCheck != null)
                             {
-                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0027", Message = string.Format(_localizer[name: "W0027"]) };
+                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0060", Message = string.Format(_localizer[name: "W0060"]) };
 
                             }
                         }
